@@ -1,0 +1,54 @@
+<head>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<script src="bzn-permit.geojson" type="text/javascript"></script>
+</head>
+
+
+<body>
+	<style>
+	#map {
+	    height: 90%;
+	    width: 90%;
+	}
+	</style>
+
+	<div id="map"></div>
+
+	<script>
+
+		//Create leaflet map
+		var map = L.map('map').setView([45.6777074,-111.0500436], 12);
+
+		L.tileLayer('https://api.tiles.mapbox.com/v4/eidietrich.2f6ec67b/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZWlkaWV0cmljaCIsImEiOiJhYjEzNDY4NDViMTliZjEzZGNhODQ1OTQzMDI4YjNkNSJ9.9BxbRokZU4bM-EjT4reKow', {
+				    attribution: 'Placeholder'
+				 }).addTo(map);
+
+
+		//style settings (object?) for permits
+		var geojsonMarkerOptions = {
+		    radius: 2,
+		    fillColor: "#ff7800",
+		    color: "#000",
+		    weight: 0,
+		    opacity: 1,
+		    fillOpacity: 0.3
+		};
+
+		L.geoJson(bznPermits , {
+			pointToLayer: function (feature, latlng) {
+				return L.circleMarker(latlng, geojsonMarkerOptions)
+			}
+		}).addTo(map);
+
+		/*
+		Functionality to add 
+			Color-code/filter permits by type
+			Load time optimization (pre-filter data?)
+			Animation by permit date
+
+		*/
+
+	</script>
+
+</body>
